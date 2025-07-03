@@ -1,0 +1,15 @@
+services:
+  api:
+    # Constrói a imagem a partir do Dockerfile no diretório atual ('.')
+    build: .
+    container_name: ellis_api
+    # Mapeia a porta 8000 do container para a porta 8000 da sua máquina
+    ports:
+      - "8000:8000"
+    # Monta o diretório atual no diretório /app do container.
+    # Isso é essencial para que o hot-reload funcione em desenvolvimento.
+    volumes:
+      - .:/app
+    # Sobrescreve o comando do Dockerfile para habilitar o --reload,
+    # ideal para o desenvolvimento.
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
